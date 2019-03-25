@@ -1,6 +1,20 @@
 <?php include "../includes/dbConnection.php" ?>
 <?php include "admin_functions.php" ?>
 <?php ob_start();?>
+<?php session_start(); ?>
+<?php
+
+// this piece of code even goes ahead to lock you out from the admin button on the frontpage
+// I think the way it works is that by placing it on the admin header immedaitely after session start
+// once you click on an admin link, it starts reading the codes from top, once it gets to the header 
+// location redirection, it quicly throws you out, all these happens in split seconds, but ...it happens, smiles.
+//that's simply how you block out people from accessing a particular page or link
+if(!isset($_SESSION['user_role'])){
+        header("Location: ../index.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

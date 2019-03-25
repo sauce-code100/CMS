@@ -33,11 +33,11 @@
 
 
 
-                    if($post_status !== 'published'){
+                    // if($post_status !== 'published'){
 
-                        echo "<h1 class='text-center'> NO RESULT FOUND SORRY </h1>";
+                    //     echo "<h1 class='text-center'> NO RESULT FOUND SORRY </h1>";
 
-                    }else{
+                    // }else{
 
                 ?>
                 <h2><a href="post.php?post_id=<?php echo $post_id ?>"><?php echo $post_title ?></a></h2>
@@ -53,7 +53,11 @@
                     
                 <hr>
 
-            <?php    } }?>
+            <?php    } 
+        
+        //}
+        
+        ?>
 
 
                 <!-- Pager -->

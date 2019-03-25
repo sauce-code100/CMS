@@ -1,136 +1,107 @@
+<?php include "../includes/functions.php" ?>
+
 <?php
-$edit_id = $_GET['edit'];
+$edit_user_id = $_GET['edit'];
 
-$query = "SELECT * FROM poststb WHERE post_id={$edit_id}";
-$result = mysqli_query($connection, $query);
-while($row = mysqli_fetch_assoc($result)){
-
-    $post_title = $row['post_title'];
-    $post_category_id = $row['post_category_id'];
-    $post_author = $row['post_author'];
-    $post_status = $row['post_status'];
-    $post_image = $row['post_image'];
-    $post_tags = $row['post_tags'];
-    $post_content = $row['post_content'];
-
+$query = "SELECT * FROM userstb WHERE user_id= {$edit_user_id} ";
+$resultSelectAll = mysqli_query($connection, $query);
+while($row=mysqli_fetch_assoc($resultSelectAll)){
+    $username = $row['username'];
+    $password = $row['user_password'];
+    $user_firstname = $row['user_firstname'];
+    $user_lastname = $row['user_lastname'];
+    $user_email = $row['user_email'];
+    $user_role = $row['user_role'];
 }
 ?>
 
 
+<?php 
+if(isset($_POST['edit_user'])){
+    
+    echo "<strong> USER EDITED SUCCESSFULLY </strong><br><br>";
 
-<form action="" method="post" enctype="multipart/form-data">
+    $username = $_POST['username'];
+    $user_password = $_POST['password'];
+    $user_firstname = $_POST['firstname'];
+    $user_lastname = $_POST['lastname'];
 
-<div class="form-group">
-    <label for="title">Post Title</label>
-    <input type="text" name="title" class="form-control" value="<?php echo $post_title ?>">
-    </div>
+    // $user_image = $_FILES['image']['name'];
+    // $user_image_temp = $_FILES['image']['tmp_name'];
 
-<div class="form-group">
-    <label for="post_category_id">Post Category Id</label>
-    <select name="post_category" id="">
-<?php
-$query = "SELECT * FROM categoriestb";
+    $user_email = $_POST['email'];
+    $user_role = $_POST['user_role'];
+
+ //   move_uploaded_file($post_image_temp, "../images/$post_image");
+
+$query = "UPDATE userstb SET username = '{$username}', user_password = '{$user_password}', ";
+$query .= "user_firstname = '{$user_firstname}', user_lastname = '{$user_lastname}', ";
+$query .= "user_email = '{$user_email}', user_role = '{$user_role}' WHERE user_id = {$edit_user_id}";
+
+
 $result = mysqli_query($connection, $query);
 
-while($row = mysqli_fetch_assoc($result)){
-    $cat_id = $row['cat_id'];
-    $cat_title = $row['cat_title'];
-
-    $selected = ($cat_id == $post_category_id)?'selected' :'';
-   echo "<option  {$selected} value='{$cat_id}'>{$cat_title}</option>";
+confirmQuery($result);
 
 }
 
+?>
+
+<form action="" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" value="<?php echo $username; ?>" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" value="<?php echo $password; ?>" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="firstname">Firstname</label>
+        <input type="text" name="firstname" value="<?php echo $user_firstname; ?>" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="lastname">Lastname</label>
+        <input type="text" name="lastname" value="<?php echo $user_lastname; ?>" class="form-control">
+    </div>
+
+     <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" name="email" value="<?php echo $user_email; ?>" class="form-control">
+    </div>
+
+    <!-- <div class="form-group">
+        <label for="image">User Image</label>
+        <input type="file" name="image" class="form-control">
+    </div> -->
+
+    <div class="form-group">
+        <label for="user_role">User Role</label>
+        <select name="user_role" id="">
+        <option  value='<?php echo $user_role; ?>'><?php echo $user_role; ?></option>
+<?php
+
+    if($user_role == 'admin'){
+        echo "<option  value='subscriber'>subscriber</option>";
+    }else{
+        echo "<option  value='admin'>admin</option>";
+    }
+
+    
+    
+
 ?> 
   
-    </select>
-</div>
+    </select><br><br>
 
-<div class="form-group">
-    <label for="author">Post Author</label>
-    <input type="text" name="author" class="form-control" value="<?php echo $post_author ?>">
-</div>
-
-<div class="form-group">
-    <label for="status">Post Status</label>
-    <input type="text" name="status" class="form-control" value="<?php echo $post_status ?>">
-</div>
-
-<div class="form-group">
-    <label for="image">Post Image</label>
-    <input type="file" name="image" id="">
-    <img src="../images/<?php echo $post_image; ?>" width=100 height=50 alt="">
-</div>
-
-<div class="form-group">
-    <label for="tags">Post Tags</label>
-    <input type="text" name="tags" class="form-control" value="<?php echo $post_tags ?>">
-</div>
-
-<div class="form-group">
-    <label for="content">Post Content</label>
-    <textarea name="content" class="form-control" cols="30" rows="10">
-    <?php echo $post_content ?>
-    </textarea>
-</div>
-
-<div class="form-group">
-    <input class="btn btn-primary" type="submit" name="create_post" value="Publish Post">
-</div>
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" name="edit_user" value="Edit User">
+    </div>
 
 </form>
 
 
-
-<?php
-if(isset($_POST['create_post'])){
-
-$edit_id = $_GET['edit'];
-
-$post_title = $_POST['title'];
-$post_category_id = $_POST['post_category'];
-$post_author = $_POST['author'];
-$post_status = $_POST['status'];
-
-$post_image = $_FILES['image']['name'];
-$post_image_temp = $_FILES['image']['tmp_name'];
-
-$post_tags = $_POST['tags'];
-$post_content = $_POST['content'];
-
-move_uploaded_file($post_image_temp, "../images/$post_image");
-
-
-//ensuring we always have an image even after updating
-if(empty($post_image)){
-
-$query = "SELECT * FROM poststb WHERE post_id = {$edit_id}";
-$query_image = mysqli_query($connection, $query);
-
-while($row = mysqli_fetch_assoc($query_image)){
-    $post_image = $row['post_image'];
-}
-}
-
-
-
-$query = "UPDATE poststb SET ";
-$query .= "post_category_id = '{$post_category_id}', ";
-$query .= "post_title = '{$post_title}', ";
-$query .= "post_author = '{$post_author}', ";
-$query .= "post_date = now(), ";
-$query .= "post_image = '{$post_image}', ";
-$query .= "post_content = '{$post_content}', ";
-$query .= "post_tags = '{$post_tags}', ";
-$query .= "post_status = '{$post_status}' ";
-$query .= "WHERE post_id = {$edit_id}";
-
-
-
-$update_query = mysqli_query($connection, $query);
-if(!$update_query){
-    die("query failed" . mysqli_error($connection));
-}
-header("Location: posts.php?source=edit_posts&edit=$edit_id");
-}
-?>

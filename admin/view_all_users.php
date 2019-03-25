@@ -51,9 +51,10 @@ $result = mysqli_query($connection, $query);
     // }
 
 
-        echo "<td><a href='comments.php?approve='>Approve</a></td>";
-        echo "<td><a href='comments.php?unapprove='>Unapprove</a></td>";
-        echo "<td><a href='comments.php?delete='>Delete</a></td>";
+        echo "<td><a href= 'users.php?change_to_admin={$user_id}'>admin</a></td>";
+        echo "<td><a href= 'users.php?change_to_subscriber={$user_id}'>subscriber</a></td>";
+        echo "<td><a href='users.php?source=edit_users&edit={$user_id}'>Edit</a></td>";
+        echo "<td><a href='users.php?delete={$user_id}'>Delete</a></td>";
 
    echo "</tr> ";
 
@@ -68,40 +69,34 @@ $result = mysqli_query($connection, $query);
 
 
 <?php
-    if(isset($_GET['approve'])){
-        $approve_id = $_GET['approve'];
-        $queryApprove = "UPDATE commentstb SET comment_status= 'approved' WHERE comment_id = {$approve_id}";
+    if(isset($_GET['change_to_admin'])){
+        $approve_id = $_GET['change_to_admin'];
+        $queryApprove = "UPDATE userstb SET user_role= 'admin' WHERE user_id = {$approve_id}";
         $approve_query = mysqli_query($connection, $queryApprove);
-        header("Location: comments.php");
+        header("Location: users.php");
     }else{
         $approve_id = "";
     }
 
 
 
-    if(isset($_GET['unapprove'])){
-        $unapprove_id = $_GET['unapprove'];
-        $queryUnapprove = "UPDATE commentstb SET comment_status= 'unapproved' WHERE comment_id = {$unapprove_id}";
+    if(isset($_GET['change_to_subscriber'])){
+        $unapprove_id = $_GET['change_to_subscriber'];
+        $queryUnapprove = "UPDATE userstb SET user_role= 'subscriber' WHERE user_id = {$unapprove_id}";
         $unapprove_query = mysqli_query($connection, $queryUnapprove);
-        header("Location: comments.php");
+        header("Location: users.php");
     }else{
         $unapprove_id = "";
     }
 
-
-
-
 ?>
-
-
-
 
 <?php
     if(isset($_GET['delete'])){
         $delete_id = $_GET['delete'];
-        $queryDelete = "DELETE FROM commentstb WHERE comment_id = {$delete_id}";
+        $queryDelete = "DELETE FROM userstb WHERE user_id = {$delete_id}";
         $delete_query = mysqli_query($connection, $queryDelete);
-        header("Location: comments.php");
+        header("Location: users.php");
     }else{
         $delete_id = "";
     }

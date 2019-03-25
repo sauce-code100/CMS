@@ -95,12 +95,6 @@ $result = mysqli_query($connection, $query);
 
 confirmQuery($result);
 
-
-
-
 }
-
-
-
 
 ?>
