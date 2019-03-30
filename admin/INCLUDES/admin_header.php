@@ -9,6 +9,9 @@
 // once you click on an admin link, it starts reading the codes from top, once it gets to the header 
 // location redirection, it quicly throws you out, all these happens in split seconds, but ...it happens, smiles.
 //that's simply how you block out people from accessing a particular page or link
+
+
+
 if(!isset($_SESSION['user_role'])){
         header("Location: ../index.php");
 }
@@ -43,6 +46,12 @@ if(!isset($_SESSION['user_role'])){
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
+
+   
+
+
 
 </head>
 

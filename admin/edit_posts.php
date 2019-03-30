@@ -16,8 +16,6 @@ while($row = mysqli_fetch_assoc($result)){
 }
 ?>
 
-
-
 <form action="" method="post" enctype="multipart/form-data">
 
 <div class="form-group">
@@ -51,10 +49,22 @@ while($row = mysqli_fetch_assoc($result)){
     <input type="text" name="author" class="form-control" value="<?php echo $post_author ?>">
 </div>
 
+
 <div class="form-group">
     <label for="status">Post Status</label>
-    <input type="text" name="status" class="form-control" value="<?php echo $post_status ?>">
+<select name="status">
+<?php
+   echo "<option value='{$post_status}'>$post_status</option>";
+
+   if($post_status == 'draft'){
+    echo "<option value='published'>published</option>";  
+ }else{
+    echo "<option value='draft'>Draft</option>"; 
+ }
+?>
+</select>
 </div>
+
 
 <div class="form-group">
     <label for="image">Post Image</label>
@@ -69,13 +79,22 @@ while($row = mysqli_fetch_assoc($result)){
 
 <div class="form-group">
     <label for="content">Post Content</label>
-    <textarea name="content" class="form-control" cols="30" rows="10">
+    <textarea name="content" class="form-control" cols="30" rows="10" id="body">
     <?php echo $post_content ?>
     </textarea>
 </div>
 
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#body' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+
+
 <div class="form-group">
-    <input class="btn btn-primary" type="submit" name="create_post" value="Publish Post">
+    <input class="btn btn-primary" type="submit" name="create_post" value="Update Post">
 </div>
 
 </form>
@@ -131,6 +150,10 @@ $update_query = mysqli_query($connection, $query);
 if(!$update_query){
     die("query failed" . mysqli_error($connection));
 }
+
+
 header("Location: posts.php?source=edit_posts&edit=$edit_id");
+
+
 }
 ?>

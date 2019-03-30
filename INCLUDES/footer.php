@@ -1,7 +1,7 @@
 <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Chika Hope 2019</p>
+                    <p class="text-center">Copyright &copy; Chika Hope 2019</p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

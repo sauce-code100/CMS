@@ -41,9 +41,13 @@ while($row = mysqli_fetch_assoc($result)){
     </div>
 
     <div class="form-group">
-        <label for="status">Post Status</label>
-        <input type="text" name="status" class="form-control">
-    </div>
+    <label for="status">Post Status</label>
+    <select name="status">
+    <option value='draft'>Select Option</option>"
+    <option value='draft'>Draft</option>"
+        <option value='published'>Published</option>
+    </select>
+</div>
 
     <div class="form-group">
         <label for="image">Post Image</label>
@@ -57,8 +61,18 @@ while($row = mysqli_fetch_assoc($result)){
 
     <div class="form-group">
         <label for="content">Post Content</label>
-        <textarea name="content" class="form-control" cols="30" rows="10"></textarea>
+        <textarea name="content" class="form-control" cols="30" rows="10" id="body"></textarea>
     </div>
+
+
+    <script>
+    ClassicEditor
+        .create( document.querySelector( '#body' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+    
 
     <div class="form-group">
         <input class="btn btn-primary" type="submit" name="create_post" value="Publish Post">
@@ -99,8 +113,4 @@ confirmQuery($result);
 
 
 }
-
-
-
-
 ?>

@@ -35,22 +35,20 @@
                     $post_title = $row['post_title'];
                     $post_author = $row['post_author'];
                     $post_date = $row['post_date'];
-                    $post_content = substr($row['post_content'], 0, 100);
+                    $post_content = $row['post_content'];
                     $post_image = $row['post_image'];
                 ?>
   <h2>
                     <a href="#"><?php echo $post_title ?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php"><?php echo $post_author ?></a>
+                    by <a href="#"><?php echo $post_author ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date ?></p>
                 <hr>
                 <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">
                 <hr>
                 <p><?php echo $post_content ?></p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
                 <hr>
 
             <?php    } ?>
@@ -68,13 +66,59 @@
 
                <!-- Blog Comments -->
 
+
+
+               <?php
+
+if(isset($_POST['create_comment'])){
+
+$comment_post_id = $_GET['post_id'];
+$comment_author = $_POST['comment_author'];
+$comment_email = $_POST['comment_email'];
+$comment_content = $_POST['comment_content'];
+
+if(!empty($comment_author) && !empty($comment_email) && !empty($comment_content)){
+    $queryComment = "INSERT INTO commentstb (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date)";
+    $queryComment .= " VALUES ($comment_post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'Unapproved', now() )";
+    
+    $resultComment = mysqli_query($connection, $queryComment);
+    
+    if(!$resultComment){
+        die("QUERY FAILED". mysqli_error($connection));
+    
+    }
+    
+    //look out for this code
+    $query = "UPDATE poststb SET post_comment_count = post_comment_count+1 ";
+    $query .= "WHERE post_id = $comment_post_id";
+    $updateCommentCountResult = mysqli_query($connection, $query);
+    $message = "Comment Submitted successfully";
+
+
+}else{
+    $message = "Fields cannot be empty";
+}
+
+
+
+
+} else{
+    $message = "";
+} 
+
+
+?>
+
+
+
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>Leave a Comment:</h4>
+                    <?php echo "<h4 class='text-center'>{$message}</h4>"  ?>
                     <form action="" method="post" role="form">
                         <div class="form-group">
                         <label for="comment_author"><strong>Author:</strong></label>
-                          <input class="form-control" type="text" name="comment_author" >  
+                          <input class="form-control" type="text" name="comment_author">  
                         </div>
 
                         <div class="form-group">
@@ -93,32 +137,7 @@
 
                 <hr>
 
-<?php
 
-if(isset($_POST['create_comment'])){
-
-$comment_post_id = $_GET['post_id'];
-$comment_author = $_POST['comment_author'];
-$comment_email = $_POST['comment_email'];
-$comment_content = $_POST['comment_content'];
-
-
-$queryComment = "INSERT INTO commentstb (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date)";
-$queryComment .= " VALUES ($comment_post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'Unapproved', now() )";
-
-$resultComment = mysqli_query($connection, $queryComment);
-
-if(!$resultComment){
-    die("QUERY FAILED". mysqli_error($connection));
-
-}
-
-//look out for this code
-$query = "UPDATE poststb SET post_comment_count = post_comment_count+1 ";
-$query .= "WHERE post_id = $comment_post_id";
-$updateCommentCountResult = mysqli_query($connection, $query);
-
-}  ?>
 
 
 <?php 

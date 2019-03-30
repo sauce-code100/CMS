@@ -2,7 +2,7 @@
 
 
 <?php if(isset($_POST['create_user'])){
-    echo "<strong>USER ADDED SUCCESSFULLY</strong><br><br>";
+    echo "<strong>USER ADDED SUCCESSFULLY</strong>". "  " ."<a href='users.php'>View Users</a>"."<br><br>";
 }
  ?>
 

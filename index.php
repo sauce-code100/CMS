@@ -33,11 +33,11 @@
 
 
 
-                    // if($post_status !== 'published'){
+                    if($post_status !== 'published'){
 
-                    //     echo "<h1 class='text-center'> NO RESULT FOUND SORRY </h1>";
+                        echo "";
 
-                    // }else{
+                    }else{
 
                 ?>
                 <h2><a href="post.php?post_id=<?php echo $post_id ?>"><?php echo $post_title ?></a></h2>
@@ -46,16 +46,16 @@
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date ?></p>
                 <hr>
-                <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">
+                <a href="post.php?post_id=<?php echo $post_id ?>"><img class="img-responsive" src="images/<?php echo $post_image;?>" alt=""></a>
                 <hr>
-                <p><?php echo $post_content ?></p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <p><?php echo $post_content; ?></p>
+                <a class="btn btn-primary" <a href="post.php?post_id=<?php echo $post_id ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
                     
                 <hr>
 
             <?php    } 
         
-        //}
+        }
         
         ?>
 

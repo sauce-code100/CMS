@@ -1,3 +1,4 @@
+<?php session_start(); ?>
    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -25,7 +26,22 @@
             ?>
             
                 <li> <a href='admin/index.php'>ADMIN</a></li>
+                <li> <a href='registration.php'>Register</a></li>
+           <?php
+           if(isset($_SESSION['user_role'])){
+            if(isset($_GET['post_id'])){
+               echo  $post_id = $_GET['post_id'];
+
+               echo "<li><a href='/CMS_TEMPLATE/admin/posts.php?source=edit_posts&edit={$post_id}'>Edit Post</a></li>";
+            
+
+            }
+
+           }
            
+           
+
+           ?>
             </ul>
                    
                 
