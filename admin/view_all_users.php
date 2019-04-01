@@ -1,4 +1,4 @@
-<table class = "table table-bordered">
+<table class = "table table-hover table-bordered">
                     <thead>
                         
                         <tr>
@@ -54,7 +54,7 @@ $result = mysqli_query($connection, $query);
         echo "<td><a href= 'users.php?change_to_admin={$user_id}'>admin</a></td>";
         echo "<td><a href= 'users.php?change_to_subscriber={$user_id}'>subscriber</a></td>";
         echo "<td><a href='users.php?source=edit_users&edit={$user_id}'>Edit</a></td>";
-        echo "<td><a href='users.php?delete={$user_id}'>Delete</a></td>";
+        echo "<td><a onClick=\"javascript: return confirm('Are You Sure You want to DELETE?');\" href='users.php?delete={$user_id}'>Delete</a></td>";
 
    echo "</tr> ";
 

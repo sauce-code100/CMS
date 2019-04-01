@@ -18,46 +18,35 @@
                 </h1>
 
                 <!-- First Blog Post -->
-                <?php
-                $query = "SELECT * FROM poststb";
+<?php 
+                if(isset($_GET['post_id'])){
+                    $the_post_id = $_GET['post_id'];
+                    $the_post_author = $_GET['author'];
+
+
+                }
+            
+                $query = "SELECT * FROM poststb WHERE post_author='{$the_post_author}'";
                 $result = mysqli_query($connection, $query);
                 while($row = mysqli_fetch_assoc($result)){
-                    $post_id = $row['post_id'];
                     $post_title = $row['post_title'];
                     $post_author = $row['post_author'];
                     $post_date = $row['post_date'];
-                    $post_content = substr($row['post_content'], 0, 100);
+                    $post_content = $row['post_content'];
                     $post_image = $row['post_image'];
-                    $post_status = $row['post_status'];
-
-
-
-
-                    if($post_status !== 'published'){
-
-                        echo "";
-
-                    }else{
-
                 ?>
-                <h2><a href="post.php?post_id=<?php echo $post_id ?>"><?php echo $post_title ?></a></h2>
+                <h2><a href="#"><?php echo $post_title ?></a></h2>
                 <p class="lead">
-                    by <a href="author_posts.php?post_id=<?php echo $post_id; ?>&author=<?php echo $post_author; ?>"><?php echo $post_author ?></a>
+                    by <?php echo $post_author ?>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date ?></p>
                 <hr>
-                <a href="post.php?post_id=<?php echo $post_id ?>"><img class="img-responsive" src="images/<?php echo $post_image;?>" alt=""></a>
+                <img class="img-responsive" src="images/<?php echo $post_image;?>" alt="">
                 <hr>
-                <p><?php echo $post_content; ?></p>
-                <a class="btn btn-primary" <a href="post.php?post_id=<?php echo $post_id ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-                    
+                <p><?php echo $post_content ?></p>
                 <hr>
 
-            <?php    } 
-        
-        }
-        
-        ?>
+            <?php    } ?>
 
 
                 <!-- Pager -->
@@ -69,6 +58,8 @@
                         <a href="#">Newer &rarr;</a>
                     </li>
                 </ul>
+
+
 
             </div>
 

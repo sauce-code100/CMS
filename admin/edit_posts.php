@@ -16,6 +16,17 @@ while($row = mysqli_fetch_assoc($result)){
 }
 ?>
 
+<?php
+
+//I just don't know why this has refused to display anywhere in this page
+if(isset($_POST['create_post'])){
+
+echo "<strong>POST UPDATED SUCCESSFULLY</strong>";
+
+}
+
+?>
+
 <form action="" method="post" enctype="multipart/form-data">
 
 <div class="form-group">

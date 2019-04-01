@@ -12,23 +12,14 @@
             <!-- Blog Entries Column -->
             <div class="col-md-8">
 
-                <h1 class="page-header">
-                    CONTENT MANAGEMENT SYSTEM
-                    <small>Using PHP</small>
-                </h1>
-
                 <!-- First Blog Post -->
 <?php 
                 if(isset($_GET['post_id'])){
-                    $the_post_id = $_GET['post_id'];
+                $the_post_id = $_GET['post_id'];
+
+               
 
 
-                }
-            ?>
-
-
-
-                <?php
                 $query = "SELECT * FROM poststb WHERE post_id={$the_post_id}";
                 $result = mysqli_query($connection, $query);
                 while($row = mysqli_fetch_assoc($result)){
@@ -37,6 +28,7 @@
                     $post_date = $row['post_date'];
                     $post_content = $row['post_content'];
                     $post_image = $row['post_image'];
+                    $post_views_count = $row['post_views_count'];
                 ?>
   <h2>
                     <a href="#"><?php echo $post_title ?></a>
@@ -51,7 +43,23 @@
                 <p><?php echo $post_content ?></p>
                 <hr>
 
-            <?php    } ?>
+            <?php
+            
+        }
+
+    $query = "UPDATE poststb SET post_views_count= post_views_count+1 WHERE post_id={$the_post_id}";
+        $post_view_count_result = mysqli_query($connection, $query);
+        if(!$post_view_count_result){
+            die("Query Failed". mysqli_error($connection));
+        }
+        
+        }else{
+            header("Location: index.php");
+
+
+            } 
+          
+            ?>
 
 
                 <!-- Pager -->
@@ -168,21 +176,8 @@ while($row=mysqli_fetch_assoc($displayCommentResult)){
     </div>
 
 <?php   
-
 }
-
-
 ?>
-
-
-               
-
-
-
-
-
-
-
 
             </div>
 
