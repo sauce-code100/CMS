@@ -100,7 +100,7 @@ if(isset($_POST['checkBoxArray'])){
 
 <?php
 
-$query = "SELECT * FROM poststb ORDER BY post_id DESC "; 
+$query = "SELECT * FROM poststb ORDER BY post_id ASC "; 
 $result = mysqli_query($connection, $query);
     while($row = mysqli_fetch_assoc($result)){ 
         $id = $row['post_id'];

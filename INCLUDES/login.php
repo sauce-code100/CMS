@@ -40,10 +40,5 @@ $password = crypt($password, $db_user_password);
            
         header("Location: ../index.php");
        }
-
-
 }
-
-
-
 ?>
