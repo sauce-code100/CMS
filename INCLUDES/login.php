@@ -25,10 +25,9 @@ if(isset($_POST['login'])){
 
    }
 // this piece of code reverses the encrypted password from the registration page so that  the db_password and the user inputed passwords will match
-$password = crypt($password, $db_user_password);
+// $password = crypt($password, $db_user_password);
 
-
-   if($username === $db_username && $password === $db_user_password ){
+   if(password_verify($password, $db_user_password)){
 
             $_SESSION['username'] = $db_username;
             $_SESSION['firstname'] = $db_user_firstname;

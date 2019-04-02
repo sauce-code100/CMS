@@ -77,6 +77,16 @@ if(isset($_POST['create_user'])){
     $user_lastname = $_POST['lastname'];
 
 
+
+    $user_password = mysqli_real_escape_string($connection, $user_password);
+    $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10));
+    
+
+
+
+
+
+
     // $user_image = $_FILES['image']['name'];
     // $user_image_temp = $_FILES['image']['tmp_name'];
 

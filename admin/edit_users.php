@@ -33,15 +33,16 @@ if(isset($_POST['edit_user'])){
     $user_role = $_POST['user_role'];
 
  //   move_uploaded_file($post_image_temp, "../images/$post_image");
-$query = "SELECT randSalt FROM userstb";
-$select_randsalt_query = mysqli_query($connection, $query);
+if(!empty($user_password)){
+    $query = "SELECT user_password FROM userstb WHERE user_id = $edit_user_id";
+    $get_user_query = mysqli_query($connection, $query);
+    $row = mysqli_fetch_array($get_user_query);
+    $db_user_password = $row['user_password'];
 
-if(!$select_randsalt_query){
-die("Query Failed". mysqli_error($connection));
+
+if($db_user_password != $user_password){
+    $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
 }
-$row = mysqli_fetch_array($select_randsalt_query);
-$salt = $row['randSalt'];
-$hashed_password = crypt($user_password, $salt);
 
 
 
@@ -54,7 +55,7 @@ $result = mysqli_query($connection, $query);
 
 confirmQuery($result);
 
-}
+}  }
 
 ?>
 
@@ -67,7 +68,7 @@ confirmQuery($result);
 
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" name="password" value="<?php echo $password; ?>" class="form-control">
+        <input autocomplete="off" type="password" name="password" value="" class="form-control">
     </div>
 
     <div class="form-group">

@@ -15,20 +15,23 @@ if(isset($_POST['submit'])){
     if(!empty($username) && !empty($password) && !empty($email)){
 
         $username = mysqli_real_escape_string($connection, $username);
-        $password = mysqli_real_escape_string($connection, $password);
         $email = mysqli_real_escape_string($connection, $email);
+        $password = mysqli_real_escape_string($connection, $password);
+
+        $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+
+
+        // $query = "SELECT randSalt FROM userstb";
+        // $randSaltResult = mysqli_query($connection, $query);
     
-        $query = "SELECT randSalt FROM userstb";
-        $randSaltResult = mysqli_query($connection, $query);
+        // if(!$randSaltResult){
+        //     die("Query Failed". mysqli_error($connection));
+        // }
     
-        if(!$randSaltResult){
-            die("Query Failed". mysqli_error($connection));
-        }
+        // $row = mysqli_fetch_array($randSaltResult);
+        // $salt = $row['randSalt'];   
     
-        $row = mysqli_fetch_array($randSaltResult);
-        $salt = $row['randSalt'];   
-    
-        $password =crypt($password, $salt);
+        // $password =crypt($password, $salt);
     
         $query = "INSERT INTO userstb(username, user_password, user_email, user_role) VALUES ('{$username}','{$password}','{$email}', 'subscriber')";
         $register_user_result = mysqli_query($connection, $query);

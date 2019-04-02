@@ -24,7 +24,23 @@ this.checked = true;
 
 // });
 
-
-
-
 });
+
+function loadUsersOnline() {
+    $.get("admin_functions.php?onlineusers=result", function(data){
+        $(".usersonline").text(data);
+
+    });
+}
+
+setInterval(function(){
+
+    loadUsersOnline();
+
+}, 500);
+
+
+
+
+//this time is in milliseconds, 500 then means half of a second
+

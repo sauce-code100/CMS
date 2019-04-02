@@ -56,13 +56,13 @@ if(isset($_POST['edit_user'])){
     // $user_image_temp = $_FILES['image']['tmp_name'];
 
     $user_email = $_POST['email'];
-    $user_role = $_POST['user_role'];
+
 
  //   move_uploaded_file($post_image_temp, "../images/$post_image");
 
 $query = "UPDATE userstb SET username = '{$username}', user_password = '{$user_password}', ";
 $query .= "user_firstname = '{$user_firstname}', user_lastname = '{$user_lastname}', ";
-$query .= "user_email = '{$user_email}', user_role = '{$user_role}' WHERE username = '{$_SESSION['username']}'";
+$query .= "user_email = '{$user_email}' WHERE username = '{$_SESSION['username']}'";
 
 
 $result = mysqli_query($connection, $query);
@@ -82,7 +82,7 @@ confirmQuery($result);
 
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" name="password" value="<?php echo $password; ?>" class="form-control">
+        <input type="password" autocomplete="off" name="password" value="" class="form-control">
     </div>
 
     <div class="form-group">
@@ -105,22 +105,7 @@ confirmQuery($result);
         <input type="file" name="image" class="form-control">
     </div> -->
 
-    <div class="form-group">
-        <label for="user_role">User Role</label>
-        <select name="user_role" id="">
-        <option  value='<?php echo $user_role; ?>'><?php echo $user_role; ?></option>
-<?php
-
-    if($user_role == 'admin'){
-        echo "<option  value='subscriber'>subscriber</option>";
-    }else{
-        echo "<option  value='admin'>admin</option>";
-    }
  
-
-?> 
-  
-    </select><br><br>
 
     <div class="form-group">
         <input class="btn btn-primary" type="submit" name="edit_user" value="Update Profile">
