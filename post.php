@@ -97,9 +97,9 @@ if(!empty($comment_author) && !empty($comment_email) && !empty($comment_content)
     }
     
     //look out for this code
-    $query = "UPDATE poststb SET post_comment_count = post_comment_count+1 ";
-    $query .= "WHERE post_id = $comment_post_id";
-    $updateCommentCountResult = mysqli_query($connection, $query);
+    // $query = "UPDATE poststb SET post_comment_count = post_comment_count+1 ";
+    // $query .= "WHERE post_id = $comment_post_id";
+    // $updateCommentCountResult = mysqli_query($connection, $query);
     $message = "Comment Submitted successfully";
 
 

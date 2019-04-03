@@ -47,10 +47,7 @@ if(isset($_POST['checkBoxArray'])){
                     die("Query Failed" . mysqli_error($connection));
     
                 }
-
-
             }
-
         break;
       }
 
@@ -134,7 +131,23 @@ $result = mysqli_query($connection, $query);
         echo "<td>$status</td>";
         echo "<td><img src='../images/$image' width=100 height=50 ></td>";
         echo "<td>$tags</td>";
-        echo "<td>$comment_count</td>";
+
+        $query = "SELECT * FROM commentstb WHERE comment_post_id = $id ";
+        $send_comment_query = mysqli_query($connection, $query);
+        $row = mysqli_fetch_array($send_comment_query);
+        $comment_id = $row['comment_id'];
+
+
+
+        $comment_count = mysqli_num_rows($send_comment_query);
+
+
+
+        echo "<td><a href='post_comments.php?id=$comment_id'>$comment_count</a></td>";
+
+
+
+
         echo "<td>$date</td>";
         echo "<td><a href='../post.php?post_id={$id}'>View Post</a></td>";
         echo "<td><a href='posts.php?source=edit_posts&edit={$id}'>Edit</a></td>";
